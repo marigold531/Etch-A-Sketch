@@ -13,8 +13,8 @@ let currentColor = colorInput.value;
 let currentMode = "color";
 
 let mouseDown = false
-document.body.onmousedown = () => (mouseDown = true)
-document.body.onmouseup = () => (mouseDown = false)
+window.onmousedown = () => (mouseDown = true)
+window.onmouseup = () => (mouseDown = false)
 
 slider.addEventListener('input', (e) => {
     createGrid(e.target.value);
@@ -49,23 +49,6 @@ function clearGrid() {
 gridDisplay.textContent = `${slider.value} x ${slider.value}`;
 
 
-// gridContainer.addEventListener('mousedown', (event) => {
-//     if (event.target.classList.contains('cell')) {
-//         isDrawing = true;
-//         draw(event);
-//     }
-// });
-
-// window.addEventListener('mouseup', () => {
-//     isDrawing = false;
-// });
-
-// gridContainer.addEventListener('mouseover', (event) => {
-//     if (isDrawing && event.target.classList.contains('cell')) {
-//         draw(event);
-//     }
-// });
-
 function getRandomColor() {
     const hue = Math.floor(Math.random() * 360);
     const saturation = '100%';
@@ -85,10 +68,7 @@ function draw(event) {
     else {
         event.target.style.backgroundColor = getRandomColor();
     }
-    
         
-        //event.target.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
-    
 }
 
 const clearBtn = document.querySelector("#clear-btn");
