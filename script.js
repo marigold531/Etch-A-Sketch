@@ -13,8 +13,8 @@ let currentColor = colorInput.value;
 let currentMode = "color";
 
 let mouseDown = false
-window.onmousedown = () => (mouseDown = true)
-window.onmouseup = () => (mouseDown = false)
+document.body.onmousedown = () => (mouseDown = true)
+document.body.onmouseup = () => (mouseDown = false)
 
 slider.addEventListener('input', (e) => {
     createGrid(e.target.value);
@@ -24,13 +24,14 @@ slider.addEventListener('input', (e) => {
 function createGrid(size) {
     gridContainer.innerHTML = '';
     gridContainer.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
-  
+    gridContainer.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+
     for (let i = 0; i < size * size; i++) {
       const cell = document.createElement('div');
       cell.classList.add('cell');
-      gridContainer.appendChild(cell);
       cell.addEventListener("mousedown", draw);
       cell.addEventListener("mouseover", draw);
+      gridContainer.appendChild(cell);
     //   cell.style.pointerEvents = 'none';
     }
 
@@ -80,7 +81,7 @@ const eraserBtn = document.querySelector("#eraser-btn");
 
 
 clearBtn.addEventListener('click', () => {
-    clearGrid();
+    createGrid(slider.value);
 });
 
 colorInput.addEventListener("input", (e) => {
