@@ -53,13 +53,8 @@ window.addEventListener('mouseup', () => {
     isDrawing = false;
 });
 
-gridContainer.addEventListener('mouseleave', () => {
-    isDrawing = false;
-});
-
 gridContainer.addEventListener('mouseover', (event) => {
     if (isDrawing && event.target.classList.contains('cell')) {
-        //event.target.style.backgroundColor = `${currentColor}`; // Change the color to black (or any desired color)
         draw(event);
     }
 });
