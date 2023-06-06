@@ -12,6 +12,10 @@ let currentColor = colorInput.value;
 
 let currentMode = "color";
 
+let mouseDown = false
+document.body.onmousedown = () => (mouseDown = true)
+document.body.onmouseup = () => (mouseDown = false)
+
 slider.addEventListener('input', (e) => {
     createGrid(e.target.value);
     gridDisplay.textContent = `${e.target.value} x ${e.target.value}`;
@@ -25,8 +29,11 @@ function createGrid(size) {
       const cell = document.createElement('div');
       cell.classList.add('cell');
       gridContainer.appendChild(cell);
+      cell.addEventListener("mousedown", draw);
+      cell.addEventListener("mouseover", draw);
     //   cell.style.pointerEvents = 'none';
     }
+
     console.log(size * size);
 }
 
@@ -42,22 +49,22 @@ function clearGrid() {
 gridDisplay.textContent = `${slider.value} x ${slider.value}`;
 
 
-gridContainer.addEventListener('mousedown', (event) => {
-    if (event.target.classList.contains('cell')) {
-        isDrawing = true;
-        draw(event);
-    }
-});
+// gridContainer.addEventListener('mousedown', (event) => {
+//     if (event.target.classList.contains('cell')) {
+//         isDrawing = true;
+//         draw(event);
+//     }
+// });
 
-window.addEventListener('mouseup', () => {
-    isDrawing = false;
-});
+// window.addEventListener('mouseup', () => {
+//     isDrawing = false;
+// });
 
-gridContainer.addEventListener('mouseover', (event) => {
-    if (isDrawing && event.target.classList.contains('cell')) {
-        draw(event);
-    }
-});
+// gridContainer.addEventListener('mouseover', (event) => {
+//     if (isDrawing && event.target.classList.contains('cell')) {
+//         draw(event);
+//     }
+// });
 
 function getRandomColor() {
     const hue = Math.floor(Math.random() * 360);
@@ -67,6 +74,8 @@ function getRandomColor() {
 }
 
 function draw(event) {
+    if(event.type === "mouseover" && !mouseDown) return;
+
     if(currentMode === "color") {
         event.target.style.backgroundColor = currentColor;
     }
