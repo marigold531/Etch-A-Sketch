@@ -25,6 +25,7 @@ function createGrid(size) {
       const cell = document.createElement('div');
       cell.classList.add('cell');
       gridContainer.appendChild(cell);
+    //   cell.style.pointerEvents = 'none';
     }
     console.log(size * size);
 }
@@ -40,12 +41,12 @@ function clearGrid() {
 
 gridDisplay.textContent = `${slider.value} x ${slider.value}`;
 
+
 gridContainer.addEventListener('mousedown', (event) => {
     if (event.target.classList.contains('cell')) {
         isDrawing = true;
-        // event.target.style.backgroundColor = `${currentColor}`; // Change the color to black (or any desired color)
         draw(event);
-    } 
+    }
 });
 
 window.addEventListener('mouseup', () => {
@@ -67,13 +68,16 @@ function getRandomColor() {
 
 function draw(event) {
     if(currentMode === "color") {
-        event.target.style.backgroundColor = `${currentColor}`;
+        event.target.style.backgroundColor = currentColor;
     }
     else if(currentMode === "eraser") {
         event.target.style.backgroundColor = "rgb(221, 219, 218)";
     }
-    else 
+    else {
         event.target.style.backgroundColor = getRandomColor();
+    }
+    
+        
         //event.target.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
     
 }
